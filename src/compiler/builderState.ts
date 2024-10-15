@@ -536,7 +536,7 @@ export namespace BuilderState {
     }
 
     /**
-     * Return true if the file will invalidate all files because it affectes global scope
+     * Return true if the file will invalidate all files because it affects global scope
      */
     function isFileAffectingGlobalScope(sourceFile: SourceFile) {
         return containsGlobalScopeAugmentation(sourceFile) ||

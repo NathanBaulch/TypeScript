@@ -1588,11 +1588,11 @@ function getTokenAtPositionWorker(sourceFile: SourceFile, position: number, allo
             // `GreaterThan` causes recursion on the left of the middle
             // `LessThan` causes recursion on the right of the middle
 
-            // Let's say you have 3 nodes, spanning positons
+            // Let's say you have 3 nodes, spanning positions
             // pos: 1, end: 3
             // pos: 3, end: 3
             // pos: 3, end: 5
-            // and you're looking for the token at positon 3 - all 3 of these nodes are overlapping with position 3.
+            // and you're looking for the token at position 3 - all 3 of these nodes are overlapping with position 3.
             // In fact, there's a _good argument_ that node 2 shouldn't even be allowed to exist - depending on if
             // the start or end of the ranges are considered inclusive, it's either wholly subsumed by the first or the last node.
             // Unfortunately, such nodes do exist. :( - See fourslash/completionsImport_tsx.tsx - empty jsx attributes create
@@ -3915,7 +3915,7 @@ export function findDiagnosticForNode(node: Node, sortedFileDiagnostics: readonl
     const index = binarySearchKey(sortedFileDiagnostics, span, identity, compareTextSpans);
     if (index >= 0) {
         const diagnostic = sortedFileDiagnostics[index];
-        Debug.assertEqual(diagnostic.file, node.getSourceFile(), "Diagnostics proided to 'findDiagnosticForNode' must be from a single SourceFile");
+        Debug.assertEqual(diagnostic.file, node.getSourceFile(), "Diagnostics provided to 'findDiagnosticForNode' must be from a single SourceFile");
         return cast(diagnostic, isDiagnosticWithLocation);
     }
 }

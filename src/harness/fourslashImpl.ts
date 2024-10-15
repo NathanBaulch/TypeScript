@@ -1682,7 +1682,7 @@ export class TestState {
                     // Dont defer further than already determined
                     break;
                 }
-                // Defer writing marker position to deffered marker index
+                // Defer writing marker position to deferred marker index
                 if (deferredMarkerIndex !== undefined) return;
             }
             textWithContext(location, type);

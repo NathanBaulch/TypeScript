@@ -11172,7 +11172,7 @@ interface HTMLIFrameElement extends HTMLElement {
      */
     src: string;
     /**
-     * Sets or retrives the content of the page that is to contain.
+     * Sets or retrieves the content of the page that is to contain.
      *
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLIFrameElement/srcdoc)
      */
@@ -13550,7 +13550,7 @@ interface HTMLTemplateElement extends HTMLElement {
      */
     readonly content: DocumentFragment;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTemplateElement/shadowRootClonable) */
-    shadowRootClonable: boolean;
+    shadowRootCloneable: boolean;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTemplateElement/shadowRootDelegatesFocus) */
     shadowRootDelegatesFocus: boolean;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/HTMLTemplateElement/shadowRootMode) */
@@ -18310,7 +18310,7 @@ declare var PushManager: {
 };
 
 /**
- * This Push API interface provides a subcription's URL endpoint and allows unsubscription from a push service.
+ * This Push API interface provides a subscription's URL endpoint and allows unsubscription from a push service.
  * Available only in secure contexts.
  *
  * [MDN Reference](https://developer.mozilla.org/docs/Web/API/PushSubscription)
@@ -21862,7 +21862,7 @@ interface ShadowRootEventMap {
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ShadowRoot) */
 interface ShadowRoot extends DocumentFragment, DocumentOrShadowRoot {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ShadowRoot/clonable) */
-    readonly clonable: boolean;
+    readonly cloneable: boolean;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ShadowRoot/delegatesFocus) */
     readonly delegatesFocus: boolean;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/ShadowRoot/host) */

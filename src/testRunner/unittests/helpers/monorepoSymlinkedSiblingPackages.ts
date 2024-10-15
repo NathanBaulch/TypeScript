@@ -127,7 +127,7 @@ function getEditsWithBuildAndClean(
             timeouts: forTsserver ? threeTimeouts : sys => sys.runQueuedTimeoutCallbacks(),
         },
         ...!forTsserver && osFlavor === TestServerHostOsFlavor.Linux ? [{
-            caption: "After updating childs",
+            caption: "After updating children",
             edit: noop,
             timeouts: threeTimeouts,
         }] : emptyArray,

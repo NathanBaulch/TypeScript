@@ -641,7 +641,7 @@ function resolvingModuleSpecifiers<TReturn>(
     // Import statement completions always need specifier resolution because the module specifier is
     // part of their `insertText`, not the `codeActions` creating edits away from the cursor.
     // Finally, `autoImportSpecifierExcludeRegexes` necessitates eagerly resolving module specifiers
-    // because completion items are being explcitly filtered out by module specifier.
+    // because completion items are being explicitly filtered out by module specifier.
     const needsFullResolution = isForImportStatementCompletion
         || getResolvePackageJsonExports(program.getCompilerOptions())
         || preferences.autoImportSpecifierExcludeRegexes?.length;
@@ -3736,7 +3736,7 @@ function getCompletionData(
                         }
                     }
 
-                    // If the module is merged with a value, we must get the type of the class and add its propertes (for inherited static methods).
+                    // If the module is merged with a value, we must get the type of the class and add its properties (for inherited static methods).
                     if (
                         !isTypeLocation &&
                         !insideJsDocTagTypeExpression &&
@@ -3767,7 +3767,7 @@ function getCompletionData(
 
         if (!isTypeLocation || isInTypeQuery(node)) {
             // GH#39946. Pulling on the type of a node inside of a function with a contextual `this` parameter can result in a circularity
-            // if the `node` is part of the exprssion of a `yield` or `return`. This circularity doesn't exist at compile time because
+            // if the `node` is part of the expression of a `yield` or `return`. This circularity doesn't exist at compile time because
             // we will check (and cache) the type of `this` *before* checking the type of the node.
             typeChecker.tryGetThisTypeAt(node, /*includeGlobalThis*/ false);
             let type = typeChecker.getTypeAtLocation(node).getNonOptionalType();
@@ -5050,10 +5050,10 @@ function getCompletionData(
             return false; // Don't block completions.
         }
 
-        const ancestorPropertyDeclaraion = getAncestor(contextToken.parent, SyntaxKind.PropertyDeclaration);
+        const ancestorPropertyDeclaration = getAncestor(contextToken.parent, SyntaxKind.PropertyDeclaration);
         // If we are inside a class declaration and typing `constructor` after property declaration...
         if (
-            ancestorPropertyDeclaraion
+            ancestorPropertyDeclaration
             && contextToken !== previousToken
             && isClassLike(previousToken.parent.parent)
             // And the cursor is at the token...
@@ -5067,8 +5067,8 @@ function getCompletionData(
                 contextToken.kind !== SyntaxKind.EqualsToken
                 // Should not block: `class C { blah = c/**/ }`
                 // But should block: `class C { blah = somewhat c/**/ }` and `class C { blah: SomeType c/**/ }`
-                && (isInitializedProperty(ancestorPropertyDeclaraion as PropertyDeclaration)
-                    || hasType(ancestorPropertyDeclaraion))
+                && (isInitializedProperty(ancestorPropertyDeclaration as PropertyDeclaration)
+                    || hasType(ancestorPropertyDeclaration))
             ) {
                 return true;
             }
@@ -5226,7 +5226,7 @@ function getCompletionData(
     /**
      * Filters out completion suggestions for class elements.
      *
-     * @returns Symbols to be suggested in an class element depending on existing memebers and symbol flags
+     * @returns Symbols to be suggested in an class element depending on existing members and symbol flags
      */
     function filterClassMembersList(baseSymbols: readonly Symbol[], existingMembers: readonly ClassElement[], currentClassElementModifierFlags: ModifierFlags): Symbol[] {
         const existingMemberNames = new Set<__String>();
@@ -6070,7 +6070,7 @@ function isDeprecated(symbol: Symbol, checker: TypeChecker) {
 
 /**
  * True if the first character of `lowercaseCharacters` is the first character
- * of some "word" in `identiferString` (where the string is split into "words"
+ * of some "word" in `identifierString` (where the string is split into "words"
  * by camelCase and snake_case segments), then if the remaining characters of
  * `lowercaseCharacters` appear, in order, in the rest of `identifierString`.
  *

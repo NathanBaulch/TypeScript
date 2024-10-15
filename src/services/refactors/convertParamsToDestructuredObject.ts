@@ -254,7 +254,7 @@ function getGroupedReferences(functionDeclaration: ValidFunctionDeclaration, pro
                 }
             }
 
-            /* We compare symbols because in some cases find all references wil return a reference that may or may not be to the refactored function.
+            /* We compare symbols because in some cases find all references will return a reference that may or may not be to the refactored function.
             Example from the refactorConvertParamsToDestructuredObject_methodCallUnion.ts test:
                 class A { foo(a: number, b: number) { return a + b; } }
                 class B { foo(c: number, d: number) { return c + d; } }

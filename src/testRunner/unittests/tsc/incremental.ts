@@ -121,7 +121,7 @@ describe("unittests:: tsc:: incremental::", () => {
                 "/home/src/workspaces/project/src/anotherFileWithSameReferenes.ts": dedent`
                     /// <reference path="./filePresent.ts"/>
                     /// <reference path="./fileNotFound.ts"/>
-                    function anotherFileWithSameReferenes() { }
+                    function anotherFileWithSameReferences() { }
                 `,
                 "/home/src/workspaces/project/src/filePresent.ts": `function something() { return 10; }`,
                 "/home/src/workspaces/project/tsconfig.json": jsonToReadableText({
@@ -430,7 +430,7 @@ console.log(a);`,
                 ],
             };
         }
-        function nochangeWithIncrementalDeclarationFromBeforeExplaination(): TestTscEdit {
+        function nochangeWithIncrementalDeclarationFromBeforeExplanation(): TestTscEdit {
             return {
                 ...noChangeRun,
                 discrepancyExplanation: () => [
@@ -501,10 +501,10 @@ console.log(a);`,
                     noChangeWithSubscenario("should re-emit only js so they dont contain sourcemap"),
                     withOptionChange("with declaration, emit Dts and should not emit js", "--declaration"),
                     withOptionChange("with declaration and declarationMap", "--declaration", "--declarationMap"),
-                    nochangeWithIncrementalDeclarationFromBeforeExplaination(),
+                    nochangeWithIncrementalDeclarationFromBeforeExplanation(),
                     localChange(),
                     withOptionChange("with declaration and declarationMap", "--declaration", "--declarationMap"),
-                    nochangeWithIncrementalDeclarationFromBeforeExplaination(),
+                    nochangeWithIncrementalDeclarationFromBeforeExplanation(),
                     withOptionChange("with inlineSourceMap", "--inlineSourceMap"),
                     withOptionChange("with sourceMap", "--sourceMap"),
                     noChangeWithSubscenario("emit js files"),

@@ -427,12 +427,12 @@ function createImportAdderWorker(sourceFile: SourceFile | FutureSourceFile, prog
                             entry.namedImports.set(symbolName, [reduceAddAsTypeOnlyValues(prevValue, addAsTypeOnly), propertyName]);
                         }
                         else {
-                            Debug.assert(entry.namespaceLikeImport === undefined || entry.namespaceLikeImport.name === symbolName, "Namespacelike import shoudl be missing or match symbolName");
+                            Debug.assert(entry.namespaceLikeImport === undefined || entry.namespaceLikeImport.name === symbolName, "Namespacelike import should be missing or match symbolName");
                             entry.namespaceLikeImport = { importKind, name: symbolName, addAsTypeOnly };
                         }
                         break;
                     case ImportKind.Namespace:
-                        Debug.assert(entry.namespaceLikeImport === undefined || entry.namespaceLikeImport.name === symbolName, "Namespacelike import shoudl be missing or match symbolName");
+                        Debug.assert(entry.namespaceLikeImport === undefined || entry.namespaceLikeImport.name === symbolName, "Namespacelike import should be missing or match symbolName");
                         entry.namespaceLikeImport = { importKind, name: symbolName, addAsTypeOnly };
                         break;
                 }
@@ -969,9 +969,9 @@ function tryUseExistingNamespaceImport(existingImports: readonly FixAddToExistin
     //     import * as ns from "foo";
     //     import { member1, member2 } from "foo";
     //
-    //     member3/**/ <-- cusor here
+    //     member3/**/ <-- cursor here
     //
-    // in this case we should provie 2 actions:
+    // in this case we should provide 2 actions:
     //     1. change "member3" to "ns.member3"
     //     2. add "member3" to the second import statement's import list
     // and it is up to the user to decide which one fits best.

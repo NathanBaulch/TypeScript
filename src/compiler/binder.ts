@@ -1677,7 +1677,7 @@ function createBinder(): (file: SourceFile, options: CompilerOptions) => void {
                     addAntecedent(currentReturnTarget, createReduceLabel(finallyLabel, returnLabel.antecedent, currentFlow));
                 }
                 // If we have an outer exception target (i.e. a containing try-finally or try-catch-finally), add a
-                // control flow that goes back through the finally blok and back through each possible exception source.
+                // control flow that goes back through the finally block and back through each possible exception source.
                 if (currentExceptionTarget && exceptionLabel.antecedent) {
                     addAntecedent(currentExceptionTarget, createReduceLabel(finallyLabel, exceptionLabel.antecedent, currentFlow));
                 }

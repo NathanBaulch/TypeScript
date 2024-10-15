@@ -496,7 +496,7 @@ function withContext<T>(
         if (expandoDeclaration && isExpandoPropertyDeclaration(expandoDeclaration)) {
             let assignmentTarget = expandoDeclaration;
 
-            // Some late bound expando members use thw whole expression as the declaration.
+            // Some late bound expando members use the whole expression as the declaration.
             if (isBinaryExpression(assignmentTarget)) {
                 assignmentTarget = assignmentTarget.left as PropertyAccessExpression | ElementAccessExpression;
                 if (!isExpandoPropertyDeclaration(assignmentTarget)) return undefined;
@@ -521,7 +521,7 @@ function withContext<T>(
     }
 
     function fixIsolatedDeclarationError(node: Node): DiagnosticOrDiagnosticAndArguments | undefined {
-        // Different --isolatedDeclarion errors might result in annotating type on the same node
+        // Different --isolatedDeclaration errors might result in annotating type on the same node
         // avoid creating a duplicated fix in those cases
         if (fixedNodes?.has(node)) return undefined;
         fixedNodes?.add(node);
@@ -593,7 +593,7 @@ function withContext<T>(
     }
 
     /**
-     * Factor out expressions used extends clauses in classs definitions as a
+     * Factor out expressions used extends clauses in class definitions as a
      * variable and annotate type on the new variable.
      */
     function transformExtendsClauseWithExpression(classDecl: ClassDeclaration): DiagnosticAndArguments | undefined {

@@ -58,7 +58,7 @@ registerRefactor(refactorName, {
 
 function getRefactorActionsToConvertOverloadsToOneSignature(context: RefactorContext): readonly ApplicableRefactorInfo[] {
     const { file, startPosition, program } = context;
-    const info = getConvertableOverloadListAtPosition(file, startPosition, program);
+    const info = getConvertibleOverloadListAtPosition(file, startPosition, program);
     if (!info) return emptyArray;
 
     return [{
@@ -70,7 +70,7 @@ function getRefactorActionsToConvertOverloadsToOneSignature(context: RefactorCon
 
 function getRefactorEditsToConvertOverloadsToOneSignature(context: RefactorContext): RefactorEditInfo | undefined {
     const { file, startPosition, program } = context;
-    const signatureDecls = getConvertableOverloadListAtPosition(file, startPosition, program);
+    const signatureDecls = getConvertibleOverloadListAtPosition(file, startPosition, program);
     if (!signatureDecls) return undefined;
 
     const checker = program.getTypeChecker();
@@ -161,7 +161,7 @@ function getRefactorEditsToConvertOverloadsToOneSignature(context: RefactorConte
     function getNewParametersForCombinedSignature(signatureDeclarations: (MethodSignature | MethodDeclaration | CallSignatureDeclaration | ConstructorDeclaration | ConstructSignatureDeclaration | FunctionDeclaration)[]): NodeArray<ParameterDeclaration> {
         const lastSig = signatureDeclarations[signatureDeclarations.length - 1];
         if (isFunctionLikeDeclaration(lastSig) && lastSig.body) {
-            // Trim away implementation signature arguments (they should already be compatible with overloads, but are likely less precise to guarantee compatability with the overloads)
+            // Trim away implementation signature arguments (they should already be compatible with overloads, but are likely less precise to guarantee compatibility with the overloads)
             signatureDeclarations = signatureDeclarations.slice(0, signatureDeclarations.length - 1);
         }
         return factory.createNodeArray([
@@ -211,7 +211,7 @@ ${newComment.split("\n").map(c => ` * ${c}`).join("\n")}
     }
 }
 
-function isConvertableSignatureDeclaration(d: Node): d is MethodSignature | MethodDeclaration | CallSignatureDeclaration | ConstructorDeclaration | ConstructSignatureDeclaration | FunctionDeclaration {
+function isConvertibleSignatureDeclaration(d: Node): d is MethodSignature | MethodDeclaration | CallSignatureDeclaration | ConstructorDeclaration | ConstructSignatureDeclaration | FunctionDeclaration {
     switch (d.kind) {
         case SyntaxKind.MethodSignature:
         case SyntaxKind.MethodDeclaration:
@@ -224,9 +224,9 @@ function isConvertableSignatureDeclaration(d: Node): d is MethodSignature | Meth
     return false;
 }
 
-function getConvertableOverloadListAtPosition(file: SourceFile, startPosition: number, program: Program) {
+function getConvertibleOverloadListAtPosition(file: SourceFile, startPosition: number, program: Program) {
     const node = getTokenAtPosition(file, startPosition);
-    const containingDecl = findAncestor(node, isConvertableSignatureDeclaration);
+    const containingDecl = findAncestor(node, isConvertibleSignatureDeclaration);
     if (!containingDecl) {
         return;
     }
@@ -246,7 +246,7 @@ function getConvertableOverloadListAtPosition(file: SourceFile, startPosition: n
     if (!every(decls, d => getSourceFileOfNode(d) === file)) {
         return;
     }
-    if (!isConvertableSignatureDeclaration(decls![0])) {
+    if (!isConvertibleSignatureDeclaration(decls![0])) {
         return;
     }
     const kindOne = decls![0].kind;

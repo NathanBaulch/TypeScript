@@ -1793,7 +1793,7 @@ declare namespace __React {
         userFocus?: any;
 
         /**
-         * For inputing user content
+         * For inputting user content
          */
         userInput?: any;
 
@@ -1858,7 +1858,7 @@ declare namespace __React {
         whiteSpaceTreatment?: any;
 
         /**
-         * In paged media, this property defines the mimimum number of lines
+         * In paged media, this property defines the minimum number of lines
          * that must be left at the top of the second page.
          */
         widows?: number;

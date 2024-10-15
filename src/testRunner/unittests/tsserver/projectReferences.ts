@@ -1746,7 +1746,7 @@ const b: B = new B();`,
         verifySolutionConfigDelete();
 
         // Demo config
-        verfiyDemoConfigChange();
+        verifyDemoConfigChange();
 
         it("reload projects", () => {
             const { session, baseline } = setup();
@@ -1885,7 +1885,7 @@ const b: B = new B();`,
             }));
         }
 
-        function verfiyDemoConfigChange() {
+        function verifyDemoConfigChange() {
             // Make some errors in demo::
             verifyConfigChange("demoConfig change", ({ demoConfig }) => ({
                 config: demoConfig,

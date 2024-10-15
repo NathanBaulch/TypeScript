@@ -3265,8 +3265,8 @@ function getErrorForNoInputFiles({ includeSpecs, excludeSpecs }: ConfigFileSpecs
     );
 }
 
-function shouldReportNoInputFiles(fileNames: string[], canJsonReportNoInutFiles: boolean, resolutionStack?: Path[]) {
-    return fileNames.length === 0 && canJsonReportNoInutFiles && (!resolutionStack || resolutionStack.length === 0);
+function shouldReportNoInputFiles(fileNames: string[], canJsonReportNoInputFiles: boolean, resolutionStack?: Path[]) {
+    return fileNames.length === 0 && canJsonReportNoInputFiles && (!resolutionStack || resolutionStack.length === 0);
 }
 
 /** @internal */
@@ -3286,10 +3286,10 @@ export function updateErrorForNoInputFiles(
     configFileName: string,
     configFileSpecs: ConfigFileSpecs,
     configParseDiagnostics: Diagnostic[],
-    canJsonReportNoInutFiles: boolean,
+    canJsonReportNoInputFiles: boolean,
 ): boolean {
     const existingErrors = configParseDiagnostics.length;
-    if (shouldReportNoInputFiles(fileNames, canJsonReportNoInutFiles)) {
+    if (shouldReportNoInputFiles(fileNames, canJsonReportNoInputFiles)) {
         configParseDiagnostics.push(getErrorForNoInputFiles(configFileSpecs, configFileName));
     }
     else {
@@ -3635,8 +3635,8 @@ function getExtendedConfig(
     if (sourceFile) {
         (result.extendedSourceFiles ??= new Set()).add(extendedResult.fileName);
         if (extendedResult.extendedSourceFiles) {
-            for (const extenedSourceFile of extendedResult.extendedSourceFiles) {
-                result.extendedSourceFiles.add(extenedSourceFile);
+            for (const extendedSourceFile of extendedResult.extendedSourceFiles) {
+                result.extendedSourceFiles.add(extendedSourceFile);
             }
         }
     }
@@ -3846,7 +3846,7 @@ const wildcardDirectoryPattern = /^[^*?]*(?=\/[^/]*[*?])/;
  * @param basePath The base path for any relative file specifications.
  * @param options Compiler options.
  * @param host The host used to resolve files and directories.
- * @param extraFileExtensions optionaly file extra file extension information from host
+ * @param extraFileExtensions optionally file extra file extension information from host
  *
  * @internal
  */
@@ -4101,16 +4101,16 @@ function getWildcardDirectoryFromSpec(spec: string, useCaseSensitiveFileNames: b
     if (match) {
         // We check this with a few `indexOf` calls because 3 `indexOf`/`lastIndexOf` calls is
         // less algorithmically complex (roughly O(3n) worst-case) than the regex we used to use,
-        // \/[^/]*?[*?][^/]*\/ which was polynominal in v8, since arbitrary sequences of wildcard
+        // \/[^/]*?[*?][^/]*\/ which was polynomial in v8, since arbitrary sequences of wildcard
         // characters could match any of the central patterns, resulting in bad backtracking.
         const questionWildcardIndex = spec.indexOf("?");
         const starWildcardIndex = spec.indexOf("*");
-        const lastDirectorySeperatorIndex = spec.lastIndexOf(directorySeparator);
+        const lastDirectorySeparatorIndex = spec.lastIndexOf(directorySeparator);
         return {
             key: toCanonicalKey(match[0], useCaseSensitiveFileNames),
             path: match[0],
-            flags: (questionWildcardIndex !== -1 && questionWildcardIndex < lastDirectorySeperatorIndex)
-                    || (starWildcardIndex !== -1 && starWildcardIndex < lastDirectorySeperatorIndex)
+            flags: (questionWildcardIndex !== -1 && questionWildcardIndex < lastDirectorySeparatorIndex)
+                    || (starWildcardIndex !== -1 && starWildcardIndex < lastDirectorySeparatorIndex)
                 ? WatchDirectoryFlags.Recursive : WatchDirectoryFlags.None,
         };
     }

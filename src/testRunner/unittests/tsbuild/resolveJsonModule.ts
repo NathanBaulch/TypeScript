@@ -35,7 +35,7 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         }, { currentDirectory: "/home/src/workspaces/solution" });
     }
 
-    function verfiyJson(
+    function verifyJson(
         input: Pick<VerifyTscWithEditsInput, "subScenario" | "modifySystem" | "edits"> | string,
         tsconfigFiles: object,
         additionalCompilerOptions?: CompilerOptions,
@@ -56,19 +56,19 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         });
     }
 
-    verfiyJson("include only", {
+    verifyJson("include only", {
         include: [
             "src/**/*",
         ],
     });
 
-    verfiyJson("include only without outDir", {
+    verifyJson("include only without outDir", {
         include: [
             "src/**/*",
         ],
     }, { outDir: undefined });
 
-    verfiyJson({
+    verifyJson({
         subScenario: "include only with json not in rootDir",
         modifySystem: sys => {
             sys.renameFile("/home/src/workspaces/solution/project/src/hello.json", "/home/src/workspaces/solution/project/hello.json");
@@ -80,7 +80,7 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         ],
     }, { rootDir: "src" });
 
-    verfiyJson({
+    verifyJson({
         subScenario: "include only with json without rootDir but outside configDirectory",
         modifySystem: sys => {
             sys.renameFile("/home/src/workspaces/solution/project/src/hello.json", "/home/src/workspaces/solution/hello.json");
@@ -92,14 +92,14 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         ],
     });
 
-    verfiyJson("include of json along with other include", {
+    verifyJson("include of json along with other include", {
         include: [
             "src/**/*",
             "src/**/*.json",
         ],
     });
 
-    verfiyJson({
+    verifyJson({
         subScenario: "include of json along with other include and file name matches ts file",
         modifySystem: sys => {
             sys.renameFile("/home/src/workspaces/solution/project/src/hello.json", "/home/src/workspaces/solution/project/src/index.json");
@@ -112,14 +112,14 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         ],
     });
 
-    verfiyJson("files containing json file", {
+    verifyJson("files containing json file", {
         files: [
             "src/index.ts",
             "src/hello.json",
         ],
     });
 
-    verfiyJson("include and files", {
+    verifyJson("include and files", {
         files: [
             "src/hello.json",
         ],
@@ -128,7 +128,7 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         ],
     });
 
-    verfiyJson({
+    verifyJson({
         subScenario: "sourcemap",
         edits: noChangeOnlyRuns,
     }, {
@@ -138,7 +138,7 @@ describe("unittests:: tsbuild:: with resolveJsonModule:: option on project resol
         ],
     }, { sourceMap: true });
 
-    verfiyJson({
+    verifyJson({
         subScenario: "without outDir",
         edits: noChangeOnlyRuns,
     }, {

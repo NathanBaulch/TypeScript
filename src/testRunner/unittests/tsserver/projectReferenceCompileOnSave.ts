@@ -13,16 +13,16 @@ import {
 } from "../helpers/virtualFileSystemWithWatch.js";
 
 describe("unittests:: tsserver:: projectReferenceCompileOnSave:: with project references and compile on save", () => {
-    const dependecyLocation = `/user/username/projects/myproject/dependency`;
+    const dependencyLocation = `/user/username/projects/myproject/dependency`;
     const usageLocation = `/user/username/projects/myproject/usage`;
     const dependencyTs: File = {
-        path: `${dependecyLocation}/fns.ts`,
+        path: `${dependencyLocation}/fns.ts`,
         content: `export function fn1() { }
 export function fn2() { }
 `,
     };
     const dependencyConfig: File = {
-        path: `${dependecyLocation}/tsconfig.json`,
+        path: `${dependencyLocation}/tsconfig.json`,
         content: jsonToReadableText({
             compilerOptions: { composite: true, declarationDir: "../decls" },
             compileOnSave: true,
@@ -269,7 +269,7 @@ fn2();
                     command: ts.server.protocol.CommandTypes.EmitOutput,
                     arguments: { file: usageTs.path },
                 });
-                baselineTsserverLogs("projectReferenceCompileOnSave", "when dependency project is not open and save on usage and change to depenedency", session);
+                baselineTsserverLogs("projectReferenceCompileOnSave", "when dependency project is not open and save on usage and change to dependency", session);
             });
             it("with change to dependency, with specifying project file", () => {
                 const host = TestServerHost.createServerHost([dependencyTs, dependencyConfig, usageTs, usageConfig]);
@@ -299,7 +299,7 @@ fn2();
                     command: ts.server.protocol.CommandTypes.EmitOutput,
                     arguments: { file: usageTs.path, projectFileName: usageConfig.path },
                 });
-                baselineTsserverLogs("projectReferenceCompileOnSave", "when dependency project is not open and save on usage with project and change to depenedency", session);
+                baselineTsserverLogs("projectReferenceCompileOnSave", "when dependency project is not open and save on usage with project and change to dependency", session);
             });
             it("with change to usage, without specifying project file", () => {
                 const host = TestServerHost.createServerHost([dependencyTs, dependencyConfig, usageTs, usageConfig]);
@@ -721,7 +721,7 @@ fn2();
         });
     });
 
-    describe("when the depedency file is open", () => {
+    describe("when the dependency file is open", () => {
         describe("Of usageTs", () => {
             it("with initial file open, without specifying project file", () => {
                 const host = TestServerHost.createServerHost([dependencyTs, dependencyConfig, usageTs, usageConfig]);

@@ -200,7 +200,7 @@ function verifyTscEditDiscrepancies(
             const { buildInfo: cleanBuildInfo, readableBuildInfo: cleanReadableBuildInfo } = getBuildInfoForIncrementalCorrectnessCheck(cleanBuildText);
             const dtsSignatures = result.dtsSignatures?.get(outputFile);
             verifyTextEqual(incrementalBuildInfo, cleanBuildInfo, `TsBuild info text without affectedFilesPendingEmit:: ${outputFile}::`);
-            // Verify file info sigantures
+            // Verify file info signatures
             verifyMapLike(
                 (incrementalReadableBuildInfo as ReadableIncrementalMultiFileEmitBuildInfo)?.fileInfos,
                 (cleanReadableBuildInfo as ReadableIncrementalMultiFileEmitBuildInfo)?.fileInfos,

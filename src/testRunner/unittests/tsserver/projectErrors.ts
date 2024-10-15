@@ -265,7 +265,7 @@ describe("unittests:: tsserver:: projectErrors:: are reported as appropriate", (
         };
         const configFile: File = {
             path: `${projectDir}/tsconfig.json`,
-            content: jsonToReadableText({ compilerOptions: { module: "none", targer: "es5" }, exclude: ["node_modules"] }),
+            content: jsonToReadableText({ compilerOptions: { module: "none", target: "es5" }, exclude: ["node_modules"] }),
         };
         const host = TestServerHost.createServerHost([app, foo, configFile]);
         const session = new TestSession(host);

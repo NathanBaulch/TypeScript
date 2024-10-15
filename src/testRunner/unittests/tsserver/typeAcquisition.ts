@@ -9,7 +9,7 @@ import {
 } from "../helpers/tsserver.js";
 import { TestServerHost } from "../helpers/virtualFileSystemWithWatch.js";
 
-describe("unittests:: tsserver:: typeAquisition:: autoDiscovery", () => {
+describe("unittests:: tsserver:: typeAcquisition:: autoDiscovery", () => {
     it("does not depend on extension", () => {
         const file1 = {
             path: "/user/username/projects/project/app.html",
@@ -28,11 +28,11 @@ describe("unittests:: tsserver:: typeAquisition:: autoDiscovery", () => {
         }, session);
         const typeAcquisition = session.getProjectService().externalProjects[0].getTypeAcquisition();
         session.logger.log(`Typine acquisition should be enabled: ${typeAcquisition.enable}`);
-        baselineTsserverLogs("typeAquisition", "does not depend on extension", session);
+        baselineTsserverLogs("typeAcquisition", "does not depend on extension", session);
     });
 });
 
-describe("unittests:: tsserver:: typeAquisition:: prefer typings to js", () => {
+describe("unittests:: tsserver:: typeAcquisition:: prefer typings to js", () => {
     it("during second resolution pass", () => {
         const f1 = {
             path: "/user/username/projects/project/app.js",
@@ -55,6 +55,6 @@ describe("unittests:: tsserver:: typeAquisition:: prefer typings to js", () => {
 
         openFilesForSession([f1], session);
 
-        baselineTsserverLogs("typeAquisition", "prefer typings in second pass", session);
+        baselineTsserverLogs("typeAcquisition", "prefer typings in second pass", session);
     });
 });

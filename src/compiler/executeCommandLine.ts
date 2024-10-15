@@ -728,7 +728,7 @@ function executeCommandLineWorker(
     }
 }
 
-/** Returns true if commandline is --build and needs to be parsed useing parseBuildCommand */
+/** Returns true if commandline is --build and needs to be parsed using parseBuildCommand */
 export function isBuildCommand(commandLineArgs: readonly string[]): boolean {
     if (commandLineArgs.length > 0 && commandLineArgs[0].charCodeAt(0) === CharacterCodes.minus) {
         const firstOption = commandLineArgs[0].slice(commandLineArgs[0].charCodeAt(1) === CharacterCodes.minus ? 2 : 1).toLowerCase();
@@ -1047,15 +1047,15 @@ interface SolutionPerformance {
 function enableSolutionPerformance(system: System, options: BuildOptions) {
     if (system === sys && options.extendedDiagnostics) {
         performance.enable();
-        return createSolutionPerfomrance();
+        return createSolutionPerformance();
     }
 }
 
-function createSolutionPerfomrance(): SolutionPerformance {
+function createSolutionPerformance(): SolutionPerformance {
     let statistics: Map<string, Statistic> | undefined;
     return {
         addAggregateStatistic,
-        forEachAggregateStatistics: forEachAggreateStatistics,
+        forEachAggregateStatistics: forEachAggregateStatistics,
         clear,
     };
 
@@ -1070,7 +1070,7 @@ function createSolutionPerfomrance(): SolutionPerformance {
         }
     }
 
-    function forEachAggreateStatistics(cb: (s: Statistic) => void) {
+    function forEachAggregateStatistics(cb: (s: Statistic) => void) {
         statistics?.forEach(cb);
     }
 

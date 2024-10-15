@@ -1783,7 +1783,7 @@ export abstract class Project implements LanguageServiceHost, ModuleResolutionHo
             }
         }
         else if (this.hasAddedorRemovedFiles) {
-            this.print(/*writeProjectFileNames*/ true, /*writeFileExplaination*/ true, /*writeFileVersionAndText*/ false);
+            this.print(/*writeProjectFileNames*/ true, /*writeFileExplanation*/ true, /*writeFileVersionAndText*/ false);
         }
         else if (this.program !== oldProgram) {
             this.writeLog(`Different program with same set of files`);
@@ -1912,10 +1912,10 @@ export abstract class Project implements LanguageServiceHost, ModuleResolutionHo
     }
 
     filesToString(writeProjectFileNames: boolean): string {
-        return this.filesToStringWorker(writeProjectFileNames, /*writeFileExplaination*/ true, /*writeFileVersionAndText*/ false);
+        return this.filesToStringWorker(writeProjectFileNames, /*writeFileExplanation*/ true, /*writeFileVersionAndText*/ false);
     }
 
-    private filesToStringWorker(writeProjectFileNames: boolean, writeFileExplaination: boolean, writeFileVersionAndText: boolean) {
+    private filesToStringWorker(writeProjectFileNames: boolean, writeFileExplanation: boolean, writeFileVersionAndText: boolean) {
         if (this.initialLoadPending) return "\tFiles (0) InitialLoadPending\n";
         if (!this.program) return "\tFiles (0) NoProgram\n";
         const sourceFiles = this.program.getSourceFiles();
@@ -1924,7 +1924,7 @@ export abstract class Project implements LanguageServiceHost, ModuleResolutionHo
             for (const file of sourceFiles) {
                 strBuilder += `\t${file.fileName}${writeFileVersionAndText ? ` ${file.version} ${JSON.stringify(file.text)}` : ""}\n`;
             }
-            if (writeFileExplaination) {
+            if (writeFileExplanation) {
                 strBuilder += "\n\n";
                 explainFiles(this.program, s => strBuilder += `\t${s}\n`);
             }
@@ -1933,18 +1933,18 @@ export abstract class Project implements LanguageServiceHost, ModuleResolutionHo
     }
 
     /** @internal */
-    print(writeProjectFileNames: boolean, writeFileExplaination: boolean, writeFileVersionAndText: boolean): void {
+    print(writeProjectFileNames: boolean, writeFileExplanation: boolean, writeFileVersionAndText: boolean): void {
         this.writeLog(`Project '${this.projectName}' (${ProjectKind[this.projectKind]})`);
         this.writeLog(this.filesToStringWorker(
             writeProjectFileNames && this.projectService.logger.hasLevel(LogLevel.verbose),
-            writeFileExplaination && this.projectService.logger.hasLevel(LogLevel.verbose),
+            writeFileExplanation && this.projectService.logger.hasLevel(LogLevel.verbose),
             writeFileVersionAndText && this.projectService.logger.hasLevel(LogLevel.verbose),
         ));
         this.writeLog("-----------------------------------------------");
         if (this.autoImportProviderHost) {
-            this.autoImportProviderHost.print(/*writeProjectFileNames*/ false, /*writeFileExplaination*/ false, /*writeFileVersionAndText*/ false);
+            this.autoImportProviderHost.print(/*writeProjectFileNames*/ false, /*writeFileExplanation*/ false, /*writeFileVersionAndText*/ false);
         }
-        this.noDtsResolutionProject?.print(/*writeProjectFileNames*/ false, /*writeFileExplaination*/ false, /*writeFileVersionAndText*/ false);
+        this.noDtsResolutionProject?.print(/*writeProjectFileNames*/ false, /*writeFileExplanation*/ false, /*writeFileVersionAndText*/ false);
     }
 
     setCompilerOptions(compilerOptions: CompilerOptions): void {
@@ -2315,7 +2315,7 @@ export abstract class Project implements LanguageServiceHost, ModuleResolutionHo
         Debug.assert(this.projectService.serverMode === LanguageServiceMode.Semantic);
         this.noDtsResolutionProject ??= new AuxiliaryProject(this);
         if (this.noDtsResolutionProject.rootFile !== rootFile) {
-            this.projectService.setFileNamesOfAutoImportProviderOrAuxillaryProject(
+            this.projectService.setFileNamesOfAutoImportProviderOrAuxiliaryProject(
                 this.noDtsResolutionProject,
                 [rootFile],
             );
@@ -2560,7 +2560,7 @@ export class AutoImportProviderProject extends Project {
         const rootFileName = combinePaths(hostProject.currentDirectory, inferredTypesContainingFile);
         const packageJsons = hostProject.getPackageJsonsForAutoImport(combinePaths(hostProject.currentDirectory, rootFileName));
         for (const packageJson of packageJsons) {
-            packageJson.dependencies?.forEach((_, dependenyName) => addDependency(dependenyName));
+            packageJson.dependencies?.forEach((_, dependencyName) => addDependency(dependencyName));
             packageJson.peerDependencies?.forEach((_, dependencyName) => addDependency(dependencyName));
         }
 
@@ -2625,12 +2625,12 @@ export class AutoImportProviderProject extends Project {
         }
 
         const references = program.getResolvedProjectReferences();
-        let referencesAddded = 0;
+        let referencesAdded = 0;
         if (references?.length && hostProject.projectService.getHostPreferences().includeCompletionsForModuleExports) {
             // Add direct referenced projects to rootFiles names
             references.forEach(ref => {
                 if (ref?.commandLine.options.outFile) {
-                    referencesAddded += addRootNames(filterEntrypoints([
+                    referencesAdded += addRootNames(filterEntrypoints([
                         changeExtension(ref.commandLine.options.outFile, ".d.ts"),
                     ]));
                 }
@@ -2641,7 +2641,7 @@ export class AutoImportProviderProject extends Project {
                             !hostProject.useCaseSensitiveFileNames(),
                         )
                     );
-                    referencesAddded += addRootNames(filterEntrypoints(mapDefined(
+                    referencesAdded += addRootNames(filterEntrypoints(mapDefined(
                         ref.commandLine.fileNames,
                         fileName =>
                             !isDeclarationFileName(fileName) &&
@@ -2659,7 +2659,7 @@ export class AutoImportProviderProject extends Project {
         }
 
         if (rootNames?.size) {
-            hostProject.log(`AutoImportProviderProject: found ${rootNames.size} root files in ${dependenciesAdded} dependencies ${referencesAddded} referenced projects in ${timestamp() - start} ms`);
+            hostProject.log(`AutoImportProviderProject: found ${rootNames.size} root files in ${dependenciesAdded} dependencies ${referencesAdded} referenced projects in ${timestamp() - start} ms`);
         }
         return rootNames ? arrayFrom(rootNames.values()) : ts.emptyArray;
 
@@ -2789,7 +2789,7 @@ export class AutoImportProviderProject extends Project {
             );
         }
 
-        this.projectService.setFileNamesOfAutoImportProviderOrAuxillaryProject(this, rootFileNames);
+        this.projectService.setFileNamesOfAutoImportProviderOrAuxiliaryProject(this, rootFileNames);
         this.rootFileNames = rootFileNames;
         const oldProgram = this.getCurrentProgram();
         const hasSameSetOfFiles = super.updateGraph();

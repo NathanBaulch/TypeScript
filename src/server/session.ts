@@ -313,7 +313,7 @@ function allEditsBeforePos(edits: readonly TextChange[], pos: number): boolean {
 // In TS 2.4 we switched to an enum, keep this for backward compatibility
 // The var assignment ensures that even though CommandTypes are a const enum
 // we want to ensure the value is maintained in the out since the file is
-// built using --preseveConstEnum.
+// built using --preserveConstEnum.
 /** @deprecated use ts.server.protocol.CommandTypes */
 export type CommandNames = protocol.CommandTypes;
 /** @deprecated use ts.server.protocol.CommandTypes */
@@ -3825,11 +3825,11 @@ export class Session<TMessage = string> implements EventSender {
 
     public executeWithRequestId<T>(requestId: number, f: () => T): T;
     /** @internal */
-    public executeWithRequestId<T>(requestId: number, f: () => T, perfomanceData: PerformanceData | undefined): T; // eslint-disable-line @typescript-eslint/unified-signatures
-    public executeWithRequestId<T>(requestId: number, f: () => T, perfomanceData?: PerformanceData) {
+    public executeWithRequestId<T>(requestId: number, f: () => T, performanceData: PerformanceData | undefined): T; // eslint-disable-line @typescript-eslint/unified-signatures
+    public executeWithRequestId<T>(requestId: number, f: () => T, performanceData?: PerformanceData) {
         const currentPerformanceData = this.performanceData;
         try {
-            this.performanceData = perfomanceData;
+            this.performanceData = performanceData;
             this.setCurrentRequest(requestId);
             return f();
         }
@@ -3842,7 +3842,7 @@ export class Session<TMessage = string> implements EventSender {
     public executeCommand(request: protocol.Request): HandlerResponse {
         const handler = this.handlers.get(request.command);
         if (handler) {
-            const response = this.executeWithRequestId(request.seq, () => handler(request), /*perfomanceData*/ undefined);
+            const response = this.executeWithRequestId(request.seq, () => handler(request), /*performanceData*/ undefined);
             this.projectService.enableRequestedPlugins();
             return response;
         }

@@ -7,7 +7,7 @@ import path from "path";
     reportsUnnecessary?: {};
     reportsDeprecated?: {};
     isEarly?: boolean;
-    elidedInCompatabilityPyramid?: boolean;
+    elidedInCompatibilityPyramid?: boolean;
 }} DiagnosticDetails */
 void 0;
 
@@ -88,21 +88,21 @@ function buildInfoFileOutput(messageTable, inputFilePathRel) {
         "",
         'import { DiagnosticCategory, DiagnosticMessage } from "./types.js";',
         "",
-        "function diag(code: number, category: DiagnosticCategory, key: string, message: string, reportsUnnecessary?: {}, elidedInCompatabilityPyramid?: boolean, reportsDeprecated?: {}): DiagnosticMessage {",
-        "    return { code, category, key, message, reportsUnnecessary, elidedInCompatabilityPyramid, reportsDeprecated };",
+        "function diag(code: number, category: DiagnosticCategory, key: string, message: string, reportsUnnecessary?: {}, elidedInCompatibilityPyramid?: boolean, reportsDeprecated?: {}): DiagnosticMessage {",
+        "    return { code, category, key, message, reportsUnnecessary, elidedInCompatibilityPyramid, reportsDeprecated };",
         "}",
         "",
         "/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion*/", // type assertions are needed for isolatedDeclarations
         "/** @internal */",
         "export const Diagnostics = {",
     ];
-    messageTable.forEach(({ code, category, reportsUnnecessary, elidedInCompatabilityPyramid, reportsDeprecated }, name) => {
+    messageTable.forEach(({ code, category, reportsUnnecessary, elidedInCompatibilityPyramid, reportsDeprecated }, name) => {
         const propName = convertPropertyName(name);
         const argReportsUnnecessary = reportsUnnecessary ? `, /*reportsUnnecessary*/ ${reportsUnnecessary}` : "";
-        const argElidedInCompatabilityPyramid = elidedInCompatabilityPyramid ? `${!reportsUnnecessary ? ", /*reportsUnnecessary*/ undefined" : ""}, /*elidedInCompatabilityPyramid*/ ${elidedInCompatabilityPyramid}` : "";
-        const argReportsDeprecated = reportsDeprecated ? `${!argElidedInCompatabilityPyramid ? ", /*reportsUnnecessary*/ undefined, /*elidedInCompatabilityPyramid*/ undefined" : ""}, /*reportsDeprecated*/ ${reportsDeprecated}` : "";
+        const argElidedInCompatibilityPyramid = elidedInCompatibilityPyramid ? `${!reportsUnnecessary ? ", /*reportsUnnecessary*/ undefined" : ""}, /*elidedInCompatibilityPyramid*/ ${elidedInCompatibilityPyramid}` : "";
+        const argReportsDeprecated = reportsDeprecated ? `${!argElidedInCompatibilityPyramid ? ", /*reportsUnnecessary*/ undefined, /*elidedInCompatibilityPyramid*/ undefined" : ""}, /*reportsDeprecated*/ ${reportsDeprecated}` : "";
 
-        result.push(`    ${propName}: diag(${code}, DiagnosticCategory.${category}, "${createKey(propName, code)}", ${JSON.stringify(name)}${argReportsUnnecessary}${argElidedInCompatabilityPyramid}${argReportsDeprecated}) as DiagnosticMessage,`);
+        result.push(`    ${propName}: diag(${code}, DiagnosticCategory.${category}, "${createKey(propName, code)}", ${JSON.stringify(name)}${argReportsUnnecessary}${argElidedInCompatibilityPyramid}${argReportsDeprecated}) as DiagnosticMessage,`);
     });
 
     result.push("};");

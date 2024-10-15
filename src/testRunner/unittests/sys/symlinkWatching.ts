@@ -121,7 +121,7 @@ describe("unittests:: sys:: symlinkWatching::", () => {
         results.forEach(result => result.actual.length = 0);
     }
 
-    function verfiyWatchDirectoryResult(
+    function verifyWatchDirectoryResult(
         opType: string,
         dirResult: WatchDirectoryResult,
         linkResult: WatchDirectoryResult,
@@ -654,7 +654,7 @@ describe("unittests:: sys:: symlinkWatching::", () => {
     ) {
         initializeWatchDirectoryResult(dirResult, linkResult);
         operation(sys, opType, directoryName, linkName);
-        await verfiyWatchDirectoryResult(
+        await verifyWatchDirectoryResult(
             opType,
             dirResult,
             linkResult,

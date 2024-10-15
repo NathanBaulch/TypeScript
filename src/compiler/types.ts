@@ -4371,7 +4371,7 @@ export interface SourceFile extends Declaration, LocalsContainer {
      *
      * Note that this field is only set by the module resolution process when
      * `moduleResolution` is `Node16` or `NodeNext`, which is implied by the `module` setting
-     * of `Node16` or `NodeNext`, respectively, but may be overriden (eg, by a `moduleResolution`
+     * of `Node16` or `NodeNext`, respectively, but may be overridden (eg, by a `moduleResolution`
      * of `node`). If so, this field will be unset and source files will be considered to be
      * CommonJS-output-format by the node module transformer and type checker, regardless of extension or context.
      */
@@ -7155,7 +7155,7 @@ export interface DiagnosticMessage {
     reportsUnnecessary?: {};
     reportsDeprecated?: {};
     /** @internal */
-    elidedInCompatabilityPyramid?: boolean;
+    elidedInCompatibilityPyramid?: boolean;
 }
 
 /** @internal */
@@ -7669,7 +7669,7 @@ export interface CommandLineOptionBase {
     isFilePath?: boolean;                                   // True if option value is a path or fileName
     shortName?: string;                                     // A short mnemonic for convenience - for instance, 'h' can be used in place of 'help'
     description?: DiagnosticMessage;                        // The message describing what the command line switch does.
-    defaultValueDescription?: string | number | boolean | DiagnosticMessage | undefined;   // The message describing what the dafault value is. string type is prepared for fixed chosen like "false" which do not need I18n.
+    defaultValueDescription?: string | number | boolean | DiagnosticMessage | undefined;   // The message describing what the default value is. string type is prepared for fixed chosen like "false" which do not need I18n.
     paramType?: DiagnosticMessage;                          // The name to be used for a non-boolean option's parameter
     isTSConfigOnly?: boolean;                               // True if option can only be specified via tsconfig.json file
     isCommandLineOnly?: boolean;
@@ -8344,7 +8344,7 @@ export type EmitHelper = ScopedEmitHelper | UnscopedEmitHelper;
 export type EmitHelperUniqueNameCallback = (name: string) => string;
 
 /** @internal */
-export type LanugageFeatures =
+export type LanguageFeatures =
     // ES2015 Features
     | "Classes"
     | "ForOf"
@@ -8401,7 +8401,7 @@ export type LanugageFeatures =
  *
  * @internal
  */
-export const LanguageFeatureMinimumTarget: Record<LanugageFeatures, ScriptTarget> = {
+export const LanguageFeatureMinimumTarget: Record<LanguageFeatures, ScriptTarget> = {
     Classes: ScriptTarget.ES2015,
     ForOf: ScriptTarget.ES2015,
     Generators: ScriptTarget.ES2015,

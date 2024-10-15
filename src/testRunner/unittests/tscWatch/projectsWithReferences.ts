@@ -73,7 +73,7 @@ describe("unittests:: tscWatch:: projectsWithReferences:: invoking when referenc
     verifySampleProject(/*withNodeNext*/ false);
     verifySampleProject(/*withNodeNext*/ true);
 
-    function changeCompilerOpitonsPaths(sys: TestServerHost, config: string, newPaths: object) {
+    function changeCompilerOptionsPaths(sys: TestServerHost, config: string, newPaths: object) {
         const configJson = JSON.parse(sys.readFile(config)!);
         configJson.compilerOptions.paths = newPaths;
         sys.writeFile(config, jsonToReadableText(configJson));
@@ -106,23 +106,23 @@ describe("unittests:: tscWatch:: projectsWithReferences:: invoking when referenc
                             path: "/user/username/projects/transitiveReferences/nrefs/a.d.ts",
                             content: sys.readFile("/user/username/projects/transitiveReferences/refs/a.d.ts")!,
                         });
-                        changeCompilerOpitonsPaths(sys, "tsconfig.c.json", { "@ref/*": ["./nrefs/*"] });
+                        changeCompilerOptionsPaths(sys, "tsconfig.c.json", { "@ref/*": ["./nrefs/*"] });
                     },
                     timeouts: sys => sys.runQueuedTimeoutCallbacks(),
                 },
                 {
                     caption: "Revert config file edit",
-                    edit: sys => changeCompilerOpitonsPaths(sys, "tsconfig.c.json", { "@ref/*": ["./refs/*"] }),
+                    edit: sys => changeCompilerOptionsPaths(sys, "tsconfig.c.json", { "@ref/*": ["./refs/*"] }),
                     timeouts: sys => sys.runQueuedTimeoutCallbacks(),
                 },
                 {
                     caption: "edit in referenced config file",
-                    edit: sys => changeCompilerOpitonsPaths(sys, "tsconfig.b.json", { "@ref/*": ["./nrefs/*"] }),
+                    edit: sys => changeCompilerOptionsPaths(sys, "tsconfig.b.json", { "@ref/*": ["./nrefs/*"] }),
                     timeouts: sys => sys.runQueuedTimeoutCallbacks(),
                 },
                 {
                     caption: "Revert referenced config file edit",
-                    edit: sys => changeCompilerOpitonsPaths(sys, "tsconfig.b.json", { "@ref/*": ["./refs/*"] }),
+                    edit: sys => changeCompilerOptionsPaths(sys, "tsconfig.b.json", { "@ref/*": ["./refs/*"] }),
                     timeouts: sys => sys.runQueuedTimeoutCallbacks(),
                 },
                 {
@@ -224,23 +224,23 @@ X;`,
                         path: "/user/username/projects/transitiveReferences/nrefs/a.d.ts",
                         content: sys.readFile("/user/username/projects/transitiveReferences/refs/a.d.ts")!,
                     });
-                    changeCompilerOpitonsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../nrefs/*"] });
+                    changeCompilerOptionsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../nrefs/*"] });
                 },
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
                 caption: "Revert config file edit",
-                edit: sys => changeCompilerOpitonsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../refs/*"] }),
+                edit: sys => changeCompilerOptionsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../refs/*"] }),
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
                 caption: "edit in referenced config file",
-                edit: sys => changeCompilerOpitonsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../nrefs/*"] }),
+                edit: sys => changeCompilerOptionsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../nrefs/*"] }),
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
                 caption: "Revert referenced config file edit",
-                edit: sys => changeCompilerOpitonsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../refs/*"] }),
+                edit: sys => changeCompilerOptionsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../refs/*"] }),
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
@@ -329,23 +329,23 @@ X;`,
                         path: "nrefs/a.d.ts",
                         content: sys.readFile("refs/a.d.ts")!,
                     });
-                    changeCompilerOpitonsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../nrefs/*"] });
+                    changeCompilerOptionsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../nrefs/*"] });
                 },
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
                 caption: "Revert config file edit",
-                edit: sys => changeCompilerOpitonsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../refs/*"] }),
+                edit: sys => changeCompilerOptionsPaths(sys, "c/tsconfig.json", { "@ref/*": ["../refs/*"] }),
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
                 caption: "edit in referenced config file",
-                edit: sys => changeCompilerOpitonsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../nrefs/*"] }),
+                edit: sys => changeCompilerOptionsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../nrefs/*"] }),
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
                 caption: "Revert referenced config file edit",
-                edit: sys => changeCompilerOpitonsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../refs/*"] }),
+                edit: sys => changeCompilerOptionsPaths(sys, "b/tsconfig.json", { "@ref/*": ["../refs/*"] }),
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
@@ -394,7 +394,7 @@ X;`,
         commandLineArgs: ["-w", "-p", "logic", "--traceResolution", "--explainFiles"],
         edits: [
             {
-                caption: "change declration map in core",
+                caption: "change declaration map in core",
                 edit: sys => {
                     sys.replaceFileText("/user/username/projects/sample1/core/tsconfig.json", `"declarationMap": true,`, `"declarationMap": false,`);
                     const solutionBuilder = createSolutionBuilder(sys, ["core"]);

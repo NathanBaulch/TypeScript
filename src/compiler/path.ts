@@ -454,7 +454,7 @@ function pathComponents(path: string, rootLength: number) {
 }
 
 /** @internal */
-export type PathPathComponents = Path[] & { __pathComponensBrand: any; };
+export type PathPathComponents = Path[] & { __pathComponentsBrand: any; };
 
 /**
  * Parse a path into an array containing a root component (at index 0) and zero or more path

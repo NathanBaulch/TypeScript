@@ -136,7 +136,7 @@ export function patchServiceForStateBaseline(service: ProjectService): void {
                     getSourceMapper(project)?.documentPositionMappers,
                     projectDiff,
                     projectPropertyLogs,
-                    toStringDocumentPostionMapper,
+                    toStringDocumentPositionMapper,
                 );
                 projectDiff = printProperty(PrintPropertyWhen.DefinedOrChangedOrNew, data, "autoImportProviderHost", project.autoImportProviderHost, projectDiff, projectPropertyLogs, project.autoImportProviderHost ? project.autoImportProviderHost.projectName : project.autoImportProviderHost);
                 projectDiff = printProperty(PrintPropertyWhen.DefinedOrChangedOrNew, data, "noDtsResolutionProject", project.noDtsResolutionProject, projectDiff, projectPropertyLogs, project.noDtsResolutionProject ? project.noDtsResolutionProject.projectName : project.noDtsResolutionProject);
@@ -185,7 +185,7 @@ export function patchServiceForStateBaseline(service: ProjectService): void {
                 infoDiff = printScriptInfoSourceMapFilePath(data, info, infoDiff, infoPropertyLogs);
                 infoDiff = printProperty(PrintPropertyWhen.DefinedOrChangedOrNew, data, "declarationInfoPath", info.declarationInfoPath, infoDiff, infoPropertyLogs);
                 infoDiff = printSetPropertyValueWorker(PrintPropertyWhen.DefinedOrChangedOrNew, data?.sourceInfos, "sourceInfos", info.sourceInfos, infoDiff, infoPropertyLogs, identity);
-                infoDiff = printProperty(PrintPropertyWhen.DefinedOrChangedOrNew, data, "documentPositionMapper", info.documentPositionMapper, infoDiff, infoPropertyLogs, info.documentPositionMapper ? toStringDocumentPostionMapper(info.documentPositionMapper) : undefined);
+                infoDiff = printProperty(PrintPropertyWhen.DefinedOrChangedOrNew, data, "documentPositionMapper", info.documentPositionMapper, infoDiff, infoPropertyLogs, info.documentPositionMapper ? toStringDocumentPositionMapper(info.documentPositionMapper) : undefined);
                 let defaultProject: Project | undefined;
                 try {
                     if (isOpen) defaultProject = info.getDefaultProject();
@@ -228,7 +228,7 @@ export function patchServiceForStateBaseline(service: ProjectService): void {
             (logs, mapper, data) => {
                 const mapperDiff = newOrDeleted(mapper, documentPositionMappers, data);
                 logs.push([
-                    `${toStringDocumentPostionMapper(mapper)}${mapperDiff}`,
+                    `${toStringDocumentPositionMapper(mapper)}${mapperDiff}`,
                     emptyArray,
                 ]);
                 return mapperDiff;
@@ -468,7 +468,7 @@ export function patchServiceForStateBaseline(service: ProjectService): void {
             );
     }
 
-    function toStringDocumentPostionMapper(documentPositionMapper: DocumentPositionMapper) {
+    function toStringDocumentPositionMapper(documentPositionMapper: DocumentPositionMapper) {
         if (documentPositionMapper === identitySourceMapConsumer) return "identitySourceMapConsumer";
         let id = mapperToId.get(documentPositionMapper);
         if (!id) mapperToId.set(documentPositionMapper, id = nextDocumentPositionMapperId++);

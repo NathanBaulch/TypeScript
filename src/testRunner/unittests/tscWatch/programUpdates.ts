@@ -309,7 +309,7 @@ describe("unittests:: tscWatch:: programUpdates::", () => {
         },
         edits: [
             {
-                caption: "Disable  allowUnsusedLabels",
+                caption: "Disable  allowUnusedLabels",
                 edit: sys =>
                     sys.modifyFile(
                         "/user/username/workspace/solution/projects/project/tsconfig.json",
@@ -320,7 +320,7 @@ describe("unittests:: tscWatch:: programUpdates::", () => {
                 timeouts: sys => sys.runQueuedTimeoutCallbacks(),
             },
             {
-                caption: "Enable  allowUnsusedLabels",
+                caption: "Enable  allowUnusedLabels",
                 edit: sys =>
                     sys.modifyFile(
                         "/user/username/workspace/solution/projects/project/tsconfig.json",
@@ -715,7 +715,7 @@ export class A {
         });
 
         const { cb: cb2, getPrograms: getPrograms2 } = commandLineCallbacks(sys);
-        baseline.push("createing separate watcher");
+        baseline.push("creating separate watcher");
         ts.createWatchProgram(createWatchCompilerHostOfFilesAndCompilerOptionsForBaseline({
             rootFiles: [file1.path],
             system: sys,
@@ -791,7 +791,7 @@ export class A {
 
     verifyTscWatch({
         scenario,
-        subScenario: "correctly parses wild card directories from implicit glob when two keys differ only in directory seperator",
+        subScenario: "correctly parses wild card directories from implicit glob when two keys differ only in directory separator",
         commandLineArgs: ["-w", "--extendedDiagnostics"],
         sys: () => {
             const file1 = {
@@ -1859,7 +1859,7 @@ interface Document {
                             timeouts: sys => sys.runQueuedTimeoutCallbacks(),
                         },
                         {
-                            caption: "Rever the file to contain document declaration",
+                            caption: "Revert the file to contain document declaration",
                             edit: sys => sys.writeFile(aFile.path, aFile.content),
                             timeouts: sys => sys.runQueuedTimeoutCallbacks(),
                         },

@@ -1175,7 +1175,7 @@ function [#|f|](): Promise<void> {
     );
 
     _testConvertToAsyncFunctionFailed(
-        "convertToAsyncFunction_SeperateLines",
+        "convertToAsyncFunction_SeparateLines",
         `
 function [#|f|](): Promise<string> {
     var blob = fetch("https://typescriptlang.org")

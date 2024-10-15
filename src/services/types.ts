@@ -1505,7 +1505,7 @@ export interface CompletionEntry {
      */
     replacementSpan?: TextSpan;
     /**
-     * Indicates whether commiting this completion entry will require additional code actions to be
+     * Indicates whether committing this completion entry will require additional code actions to be
      * made to avoid errors. The CompletionEntryDetails will have these actions.
      */
     hasAction?: true;

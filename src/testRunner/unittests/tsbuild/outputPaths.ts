@@ -19,7 +19,7 @@ describe("unittests:: tsbuild:: outputPaths::", () => {
         noChangeProject,
     ];
 
-    function verify(input: Pick<VerifyTscWithEditsInput, "subScenario" | "sys" | "edits">, expectedOuptutNames: readonly string[]) {
+    function verify(input: Pick<VerifyTscWithEditsInput, "subScenario" | "sys" | "edits">, expectedOutputNames: readonly string[]) {
         verifyTsc({
             scenario: "outputPaths",
             commandLineArgs: ["--b", "-v"],
@@ -41,7 +41,7 @@ describe("unittests:: tsbuild:: outputPaths::", () => {
                     "/home/src/workspaces/project/src/index.ts",
                     /*ignoreCase*/ false,
                 ),
-                expectedOuptutNames,
+                expectedOutputNames,
             );
         });
     }

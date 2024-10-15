@@ -64,7 +64,7 @@ describe("unittests:: canWatch::", () => {
                         const recursive = "Recursive";
                         const maxLength = longestPathLength + ts.combinePaths(forPath, "dir/subdir/somefile.d.ts").length;
                         const maxLengths = [maxLength, maxLength, recursive.length, maxLength] as const;
-                        baselineCanWatchForRoot(paths, baseline, (rootPathCompoments, root, isRootWatchable) => {
+                        baselineCanWatchForRoot(paths, baseline, (rootPathComponents, root, isRootWatchable) => {
                             pushHeader(baseline, ["Location", "getDirectoryToWatchFailedLookupLocation", recursive, "Location if not symlink"], maxLengths);
                             paths.forEach(path => {
                                 let subPath;
@@ -85,7 +85,7 @@ describe("unittests:: canWatch::", () => {
                                     testPath,
                                     root,
                                     root,
-                                    rootPathCompoments,
+                                    rootPathComponents,
                                     isRootWatchable,
                                     ts.returnUndefined,
                                     preferNonRecursiveWatch,
@@ -106,7 +106,7 @@ describe("unittests:: canWatch::", () => {
             (paths, longestPathLength, baseline) => {
                 const maxLength = longestPathLength + "/node_modules/@types".length;
                 const maxLengths = [maxLength, maxLength] as const;
-                baselineCanWatchForRoot(paths, baseline, (rootPathCompoments, root, isRootWatchable) => {
+                baselineCanWatchForRoot(paths, baseline, (rootPathComponents, root, isRootWatchable) => {
                     pushHeader(baseline, ["Directory", "getDirectoryToWatchFailedLookupLocationFromTypeRoot"], maxLengths);
                     paths.forEach(path => {
                         path = combinePaths(path, "node_modules/@types");
@@ -116,7 +116,7 @@ describe("unittests:: canWatch::", () => {
                             path,
                             path,
                             root,
-                            rootPathCompoments,
+                            rootPathComponents,
                             isRootWatchable,
                             ts.returnUndefined,
                             preferNonRecursiveWatch,
@@ -133,7 +133,7 @@ describe("unittests:: canWatch::", () => {
         paths: readonly ts.Path[],
         baseline: string[],
         baselineForRoot: (
-            rootPathCompoments: Readonly<ts.PathPathComponents>,
+            rootPathComponents: Readonly<ts.PathPathComponents>,
             root: ts.Path,
             isRootWatchable: boolean,
         ) => void,
@@ -142,8 +142,8 @@ describe("unittests:: canWatch::", () => {
             const root = ts.getRootDirectoryOfResolutionCache(rootDirForResolution, ts.returnUndefined) as ts.Path;
             assert(root === rootDirForResolution);
             baseline.push("", `## RootDirForResolution: ${rootDirForResolution}`);
-            const rootPathCompoments = ts.getPathComponents(root);
-            baselineForRoot(rootPathCompoments, root, ts.canWatchDirectoryOrFile(rootPathCompoments));
+            const rootPathComponents = ts.getPathComponents(root);
+            baselineForRoot(rootPathComponents, root, ts.canWatchDirectoryOrFile(rootPathComponents));
         });
         baseline.push("", "");
     }

@@ -291,7 +291,7 @@ export function verifyResolutionCache(
         cache: ts.ModeAwareCache<T> | undefined,
         getResolvedFileName: (resolution: T) => string | undefined,
         deferWatchingNonRelativeResolution: boolean,
-        storeExpcted: Map<ts.Path, ts.ModeAwareCache<ts.ResolutionWithFailedLookupLocations>>,
+        storeExpected: Map<ts.Path, ts.ModeAwareCache<ts.ResolutionWithFailedLookupLocations>>,
     ) {
         ts.Debug.assert(
             actualProgram.getSourceFileByPath(fileName) || ts.endsWith(fileName, ts.inferredTypesContainingFile),
@@ -301,7 +301,7 @@ export function verifyResolutionCache(
         cache?.forEach((resolved, name, mode) => {
             const resolvedFileName = getResolvedFileName(resolved);
             const expected = collectResolution(cacheType, fileName, resolved, resolvedFileName, name, mode, deferWatchingNonRelativeResolution);
-            if (!expectedCache) storeExpcted.set(fileName, expectedCache = ts.createModeAwareCache());
+            if (!expectedCache) storeExpected.set(fileName, expectedCache = ts.createModeAwareCache());
             expectedCache.set(name, mode, expected);
         });
     }
@@ -408,10 +408,10 @@ export function verifyResolutionCache(
         caption: string,
     ) {
         ts.Debug.assert(expected?.isSymlink === actual?.isSymlink, `${projectName}:: ${caption}:: isSymlink`);
-        verifyMap(expected?.dirPathToWatcher, actual?.dirPathToWatcher, verfiyDirPathToWatcherOfPackageDirWatcher, `${projectName}:: ${caption}:: dirPathToWatcher`);
+        verifyMap(expected?.dirPathToWatcher, actual?.dirPathToWatcher, verifyDirPathToWatcherOfPackageDirWatcher, `${projectName}:: ${caption}:: dirPathToWatcher`);
     }
 
-    function verfiyDirPathToWatcherOfPackageDirWatcher(
+    function verifyDirPathToWatcherOfPackageDirWatcher(
         expected: ts.DirPathToWatcherOfPackageDirWatcher | undefined,
         actual: ts.DirPathToWatcherOfPackageDirWatcher | undefined,
         caption: string,

@@ -1070,7 +1070,7 @@ function updateWithTriggerFile(project: ConfiguredProject, triggerFile: Normaliz
     return sent;
 }
 
-/** Updates with triggerFile if persent otherwise updateProjectIfDirty, returns true if sent configFileDiagEvent */
+/** Updates with triggerFile if present otherwise updateProjectIfDirty, returns true if sent configFileDiagEvent */
 function updateConfiguredProject(project: ConfiguredProject, triggerFile: NormalizedPath | undefined) {
     if (triggerFile) {
         if (updateWithTriggerFile(project, triggerFile, /*isReload*/ false)) return true;
@@ -1602,7 +1602,7 @@ export class ProjectService {
                 );
                 return;
             case ActionInvalidate:
-                // Do not clear resolution cache, there was changes detected in typings, so enque typing request and let it get us correct results
+                // Do not clear resolution cache, there was changes detected in typings, so enqueue typing request and let it get us correct results
                 project.enqueueInstallTypingsForProject(/*forceRefresh*/ true);
                 return;
         }
@@ -2134,7 +2134,7 @@ export class ProjectService {
     private onConfigFileChanged(configFileName: NormalizedPath, canonicalConfigFilePath: NormalizedPath, eventKind: FileWatcherEventKind) {
         const configFileExistenceInfo = this.configFileExistenceInfoCache.get(canonicalConfigFilePath)!;
         const project = this.getConfiguredProjectByCanonicalConfigFilePath(canonicalConfigFilePath);
-        const wasDefferedClose = project?.deferredClose;
+        const wasDeferredClose = project?.deferredClose;
         if (eventKind === FileWatcherEventKind.Deleted) {
             // Update the cached status
             // We arent updating or removing the cached config file presence info as that will be taken care of by
@@ -2147,7 +2147,7 @@ export class ProjectService {
         else {
             // Update the cached status
             configFileExistenceInfo.exists = true;
-            if (wasDefferedClose) {
+            if (wasDeferredClose) {
                 project.deferredClose = undefined;
                 project.markAsDirty();
             }
@@ -2184,7 +2184,7 @@ export class ProjectService {
 
     private removeProject(project: Project) {
         this.logger.info("`remove Project::");
-        project.print(/*writeProjectFileNames*/ true, /*writeFileExplaination*/ true, /*writeFileVersionAndText*/ false);
+        project.print(/*writeProjectFileNames*/ true, /*writeFileExplanation*/ true, /*writeFileVersionAndText*/ false);
 
         project.close();
         if (Debug.shouldAssert(AssertionLevel.Normal)) {
@@ -2678,7 +2678,7 @@ export class ProjectService {
             // Need to set value for ancestor in ConfigFileMapForOpenFile
             let configFileForOpenFile = this.configFileForOpenFiles.get(info.path)!;
             if (!configFileForOpenFile || isString(configFileForOpenFile)) {
-                // We have value for open script info in cache, make a map with that as false key and set new vlaue
+                // We have value for open script info in cache, make a map with that as false key and set new value
                 this.configFileForOpenFiles.set(
                     info.path,
                     configFileForOpenFile = new Map().set(false, configFileForOpenFile),
@@ -3213,7 +3213,7 @@ export class ProjectService {
     }
 
     /** @internal */
-    setFileNamesOfAutoImportProviderOrAuxillaryProject(
+    setFileNamesOfAutoImportProviderOrAuxiliaryProject(
         project: AutoImportProviderProject | AuxiliaryProject,
         fileNames: readonly string[],
     ): void {
@@ -4155,7 +4155,7 @@ export class ProjectService {
         // a.ts is added as root to inferred project.
         // Now at time of opening c.ts, c.ts is also not aprt of any existing project,
         // so it will be added to inferred project as a root. (for sake of this example assume single inferred project is false)
-        // So at this poing a.ts is part of first inferred project and second inferred project (of which c.ts is root)
+        // So at this point a.ts is part of first inferred project and second inferred project (of which c.ts is root)
         // And hence it needs to be removed from the first inferred project.
         Debug.assert(info.containingProjects.length > 0);
         const firstProject = info.containingProjects[0];
@@ -4369,7 +4369,7 @@ export class ProjectService {
 
     /**
      * Depending on kind
-     * - Find the configuedProject and return it - if allowDeferredClosed is set it will find the deferredClosed project as well
+     * - Find the configuredProject and return it - if allowDeferredClosed is set it will find the deferredClosed project as well
      * - Create - if the project doesnt exist, it creates one as well. If not delayLoad, the project is updated (with triggerFile if passed)
      * - Reload - if the project doesnt exist, it creates one. If not delayLoad, the project is reloaded clearing semantic cache
      *  @internal
@@ -5718,5 +5718,5 @@ export function isConfigFile(config: ScriptInfoOrConfig): config is TsConfigSour
 }
 
 function printProjectWithoutFileNames(project: Project) {
-    project.print(/*writeProjectFileNames*/ false, /*writeFileExplaination*/ false, /*writeFileVersionAndText*/ false);
+    project.print(/*writeProjectFileNames*/ false, /*writeFileExplanation*/ false, /*writeFileVersionAndText*/ false);
 }

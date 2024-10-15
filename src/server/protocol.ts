@@ -1173,7 +1173,7 @@ export interface HighlightSpan extends TextSpanWithContext {
 }
 
 /**
- * Represents a set of highligh spans for a give name
+ * Represents a set of highlight spans for a give name
  */
 export interface DocumentHighlightsItem {
     /**
@@ -1496,7 +1496,7 @@ export interface ProjectChanges {
  */
 export interface ProjectFiles {
     /**
-     * Information about project verison
+     * Information about project version
      */
     info?: ProjectVersionInfo;
     /**
@@ -2432,7 +2432,7 @@ export interface SemanticDiagnosticsSyncRequestArgs extends FileRequestArgs {
 }
 
 /**
- * Response object for synchronous sematic diagnostics request.
+ * Response object for synchronous semantic diagnostics request.
  */
 export interface SemanticDiagnosticsSyncResponse extends Response {
     body?: Diagnostic[] | DiagnosticWithLinePosition[];
@@ -2624,7 +2624,7 @@ export interface DiagnosticRelatedInformation {
      */
     category: string;
     /**
-     * The code used ot identify the related information
+     * The code used to identify the related information
      */
     code: number;
     /**
@@ -2667,7 +2667,7 @@ export interface DiagnosticEvent extends Event {
 
 export interface ConfigFileDiagnosticEventBody {
     /**
-     * The file which trigged the searching and error-checking of the config file
+     * The file which triggered the searching and error-checking of the config file
      */
     triggerFile: string;
 
@@ -2677,7 +2677,7 @@ export interface ConfigFileDiagnosticEventBody {
     configFile: string;
 
     /**
-     * An arry of diagnostic information items for the found config file.
+     * An array of diagnostic information items for the found config file.
      */
     diagnostics: DiagnosticWithFileName[];
 }

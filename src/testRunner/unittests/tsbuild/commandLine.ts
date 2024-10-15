@@ -32,7 +32,7 @@ describe("unittests:: tsbuild:: commandLine::", () => {
                 ],
             };
         }
-        function nochangeWithIncrementalDeclarationFromBeforeExplaination(): TestTscEdit {
+        function nochangeWithIncrementalDeclarationFromBeforeExplanation(): TestTscEdit {
             return {
                 ...noChangeRun,
                 discrepancyExplanation: () => [
@@ -88,10 +88,10 @@ describe("unittests:: tsbuild:: commandLine::", () => {
                     withOptionChange("should re-emit only js so they dont contain sourcemap"),
                     withOptionChange("with declaration, emit Dts and should not emit js", "--declaration"),
                     withOptionChange("with declaration and declarationMap", "--declaration", "--declarationMap"),
-                    nochangeWithIncrementalDeclarationFromBeforeExplaination(),
+                    nochangeWithIncrementalDeclarationFromBeforeExplanation(),
                     localChange(),
                     withOptionChange("with declaration and declarationMap", "--declaration", "--declarationMap"),
-                    nochangeWithIncrementalDeclarationFromBeforeExplaination(),
+                    nochangeWithIncrementalDeclarationFromBeforeExplanation(),
                     withOptionChange("with inlineSourceMap", "--inlineSourceMap"),
                     withOptionChange("with sourceMap", "--sourceMap"),
                     noChangeWithSubscenario("emit js files"),
@@ -196,7 +196,7 @@ describe("unittests:: tsbuild:: commandLine::", () => {
                         ...noChangeRun,
                         discrepancyExplanation: () => [
                             `Clean build tsbuildinfo for both projects will have compilerOptions with composite and emitDeclarationOnly`,
-                            `Incremental build will detect that it doesnt need to rebuild so tsbuild info for projects is from before which has option composite as true but emitDeclrationOnly as false`,
+                            `Incremental build will detect that it doesnt need to rebuild so tsbuild info for projects is from before which has option composite as true but emitDeclarationOnly as false`,
                         ],
                     },
                     {
